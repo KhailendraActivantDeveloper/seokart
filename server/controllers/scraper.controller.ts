@@ -352,14 +352,14 @@ const ScraperController: ScraperControllerInterface = {
               );
   
               // Fetch the next batch of sitemap objects
-              sitemapObjs = await Sitemap.find({ userId, status: 0, urlType: 0 }).limit(40);
+              sitemapObjs = await Sitemap.find({ userId, status: 0, urlType: 0 }).limit(20);
             }
             client.sitemapScrappingStatus = 0;
             client.webPageScrappingStatus = 1;
             await client.save();
   
             // For website link crowling creat new loop
-            let webLinkObjs = await Sitemap.find({ userId, status: 0, urlType: 1 }).limit(40);
+            let webLinkObjs = await Sitemap.find({ userId, status: 0, urlType: 1 }).limit(20);
             client.webPageMappingCount += webLinkObjs.length?? 0;
             while (webLinkObjs?.length > 0) {
               await Promise.all(
@@ -369,7 +369,7 @@ const ScraperController: ScraperControllerInterface = {
                   await webLinkObj.save();
                 })
               )
-              webLinkObjs = await Sitemap.find({ userId, status: 0, urlType: 1 }).limit(40);
+              webLinkObjs = await Sitemap.find({ userId, status: 0, urlType: 1 }).limit(20);
               client.webPageMappingCount += webLinkObjs.length?? 0;
             }
   
