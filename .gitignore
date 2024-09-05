@@ -1,0 +1,49 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+seokart-app/node_modules
+seokart-app/.pnp
+seokart-app/.pnp.js
+seokart-app/.yarn/install-state.gz
+
+server/node_modules
+server/.pnp
+server/.pnp.js
+server/.yarn/install-state.gz
+
+.txt
+.htm
+
+# testing
+seokart-app/coverage
+
+# next.js
+seokart-app/.next/
+seokart-app/out/
+
+# production
+seokart-app/build
+server/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+seokart-app/.env*.local
+server/.env*.local
+
+# vercel
+seokart-app/.vercel
+server/.vercel
+
+# typescript
+*.tsbuildinfo
+server/*.tsbuildinfo
+next-env.d.ts
+server/next-env.d.ts

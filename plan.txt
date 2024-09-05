@@ -1,0 +1,11 @@
+User Collection:
+    Name, Email, Password, Role, Verified
+
+Website or client site Collection:
+    User ID, website url, sitemap url Ref, 
+
+sitemap url or Pages url Collection:
+    url, website ID, stutas
+
+web page contant:
+    title, Meta Description, Headings, Pragraphs, List, page url, user id
