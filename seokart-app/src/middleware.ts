@@ -27,6 +27,8 @@ export const config = {
     '/register',
     '/forget',
     '/about_us',
-    '/dashboard'
+    '/dashboard',
+    '/analytics',
+    '/rank-tracker'
   ],
 };

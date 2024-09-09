@@ -3,6 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./Provider";
 import { Toaster } from "react-hot-toast";
+import Loader from "./loading";
+import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
+import { FC } from "react";
+import CustomSessionProvider from "./SessionProvider/CustomSessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +24,24 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
+          <CustomSessionProvider>
             {children}
             <Toaster position="top-center" reverseOrder={false} />
+          </CustomSessionProvider>
         </Providers>
       </body>
     </html>
   );
+}
+
+const Custom: FC<{children: React.ReactNode}> = ({children}) =>{
+  const {isLoading} = useLoadUserQuery({});
+
+  return (
+    <>
+    {
+      isLoading ? <Loader /> : <>{children}</>
+    }
+    </>
+  )
 }

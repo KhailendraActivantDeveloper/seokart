@@ -10,15 +10,15 @@ type RegistrationResponse = {
 type RegistrationData = {};
 
 export const authApi = apiSlice.injectEndpoints({
-    endpoints:(builder) => ({
-        register: builder.mutation<RegistrationResponse,RegistrationData>({
+    endpoints: (builder) => ({
+        register: builder.mutation<RegistrationResponse, RegistrationData>({
             query: (data) => ({
                 url: "register",
                 method: "POST",
                 body: data,
                 credentials: "include" as const
             }),
-            async onQueryStarted(arg, {queryFulfilled, dispatch}){
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
                     const result = await queryFulfilled;
                     dispatch(
@@ -28,29 +28,29 @@ export const authApi = apiSlice.injectEndpoints({
                     )
                 } catch (err: any) {
                     console.log(err);
-                    
+
                 }
             }
         }),
         activation: builder.mutation({
-            query: ({activation_token, activation_code}) => ({
+            query: ({ activation_token, activation_code }) => ({
                 url: "activate-user",
                 method: "POST",
-                body: {activation_token, activation_code},
+                body: { activation_token, activation_code },
 
             })
         }),
         login: builder.mutation({
-            query: ({email, password})=>({
+            query: ({ email, password }) => ({
                 url: "login",
                 method: "POST",
                 body: {
-                    email, 
+                    email,
                     password
                 },
                 credentials: "include" as const
             }),
-            async onQueryStarted(arg, {queryFulfilled, dispatch}){
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
                     const result = await queryFulfilled;
                     dispatch(
@@ -61,17 +61,42 @@ export const authApi = apiSlice.injectEndpoints({
                     )
                 } catch (err: any) {
                     console.log(err);
-                    
+
+                }
+            }
+        }),
+        socialAuth: builder.mutation({
+            query: ({ email, name, avatar }) => ({
+                url: "social-auth",
+                method: "POST",
+                body: {
+                    email,
+                    name,
+                },
+                credentials: "include" as const
+            }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(
+                        userLoggedIn({
+                            accessToken: result.data.accessToken,
+                            user: result.data.user,
+                        })
+                    )
+                } catch (err: any) {
+                    console.log(err);
+
                 }
             }
         }),
         logOut: builder.query({
-            query: ()=>({
+            query: () => ({
                 url: "logout",
                 method: "GET",
                 credentials: "include" as const
             }),
-            async onQueryStarted(arg, {queryFulfilled, dispatch}){
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
                     const result = await queryFulfilled;
                     dispatch(
@@ -79,11 +104,11 @@ export const authApi = apiSlice.injectEndpoints({
                     )
                 } catch (err: any) {
                     console.log(err);
-                    
+
                 }
             }
         }),
     })
 })
 
-export const {useRegisterMutation, useActivationMutation, useLoginMutation, useLogOutQuery} = authApi;
+export const { useRegisterMutation, useActivationMutation, useLoginMutation, useSocialAuthMutation, useLogOutQuery } = authApi;

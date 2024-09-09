@@ -108,7 +108,7 @@ const Verification:React.FC<Props> = ({setRoute}) => {
                                     ref={inputRefs[index]}
                                     className={`w-[65px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex items-center text-black justify-center text-[18px] font-Poppins outline-none text-center ${invalidError ? "shake border-red-500" : "border-[#0000004a]"
                                         }`}
-                                    maxLength={1}
+                                    maxLength={2}
                                     value={verifyNumber[key as keyof VerifyNumber]}
                                     onChange={(e) => handleInputChange(index, e.target.value)}
                                 />

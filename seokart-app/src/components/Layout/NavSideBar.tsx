@@ -12,7 +12,7 @@ interface NavbarItem {
     iconAlt: string;
     text: string;
     pathname?: string;
-    dropdown?: DropdownItem[];
+    dropdown?: DropdownItem[] | any;
 }
 
 interface DropdownItem {
@@ -71,8 +71,8 @@ const NavSideBar: React.FC<Props> = (props) => {
                         </a>
                     </li>
                     {
-                        navItemsData?.items.map((item, index) => (
-                            item.dropdown ? (
+                        navItemsData?.items.map((item:any, index: number) => (
+                            item?.dropdown ? (
                                 <li key={index} className="relative">
                                     <div className="dropdown">
                                         <button
@@ -99,7 +99,7 @@ const NavSideBar: React.FC<Props> = (props) => {
                                         {isOpen && (
                                             <ul className="dropdown-menu absolute left-0 z-10 w-48 mt-2  ">
                                                 {
-                                                    item.dropdown.map((dropdownItem, dropdownIndex) => (
+                                                    item.dropdown.map((dropdownItem: any, dropdownIndex: number) => (
                                                         <DropdownItem
                                                             key={dropdownIndex}
                                                             href={dropdownItem.href}
