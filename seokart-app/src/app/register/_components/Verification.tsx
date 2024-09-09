@@ -1,6 +1,7 @@
 import { useActivationMutation } from '@/redux/features/auth/authApi';
 import Heading from '@/utils/Heading';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
@@ -20,13 +21,14 @@ type VerifyNumber = {
 const Verification:React.FC<Props> = ({setRoute}) => {
     const { token } = useSelector((state: any) => state.auth);
     const [loading, setLoading] = useState(false);
+    
     const [activation, { isError, data, isSuccess, isLoading, error }] = useActivationMutation();
 
     useEffect(() => {
         if (isSuccess) {
             const message = "Account activated successfully!";
             toast.success(message);
-              setRoute("success");
+            redirect('/')
         }
         if (error) {
             if ("data" in error) {

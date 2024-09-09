@@ -109,10 +109,7 @@ export const activateUser = CatchAsyncError(
       const user = await userModel.create({ name, email, password });
       const client = new Client({ userId: user._id });
       await client.save();
-      res.status(201).json({
-        success: true,
-        user,
-      });
+      sendToken(user, 200, res);
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 500));
     }

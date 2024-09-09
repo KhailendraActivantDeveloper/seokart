@@ -37,8 +37,22 @@ export const authApi = apiSlice.injectEndpoints({
                 url: "activate-user",
                 method: "POST",
                 body: { activation_token, activation_code },
+                credentials: "include" as const
+            }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(
+                        userLoggedIn({
+                            accessToken: result.data.accessToken,
+                            user: result.data.user,
+                        })
+                    )
+                } catch (err: any) {
+                    console.log(err);
 
-            })
+                }
+            }
         }),
         login: builder.mutation({
             query: ({ email, password }) => ({
